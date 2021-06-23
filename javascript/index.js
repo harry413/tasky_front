@@ -3,7 +3,7 @@ const taskContainer = document.querySelector(".task__container");
 
 
 //global store
-let globalstore = [];
+let globalStore = [];
 
 
 const newCard = ({
@@ -54,12 +54,12 @@ const loadInitialTaskCards = () => {
   cards.map((cardObject) =>{
     const createNewCard =newCard(cardObject);
     taskContainer.insertAdjacentHTML("beforeend", createNewCard);
-    globalstore.push(cardObject);
+    globalStore.push(cardObject);
 
   })
 };
 const updateLocalStorage = () => {
-  localStorage.setItem("tasky",JSON.stringify({cards: globalstore}));
+  localStorage.setItem("tasky",JSON.stringify({cards: globalStore}));
 }
 
 const saveChanges = () => {
@@ -75,7 +75,7 @@ const saveChanges = () => {
 
   taskContainer.insertAdjacentHTML("beforeend", createNewCard);
   
-  globalstore.push(taskData);
+  globalStore.push(taskData);
   
   //local storage
   
@@ -88,7 +88,7 @@ const deleteCard =(event)=>{
   event = windows.event;
   const targetID = event.target.id;
  const tagname = event.target.tagName;
-  globalstore = globalstore.filter((cardObject) => cardObject.id !== targetID);
+  globalStore = globalStore.filter((cardObject) => cardObject.id !== targetID);
 
    updateLocalStorage();
    //access DOM to remove them
