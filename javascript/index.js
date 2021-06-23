@@ -1,8 +1,11 @@
 // Parent element to store cards
 const taskContainer = document.querySelector(".task__container");
+
+
 //global store
-const globalstore = [];
-//
+let globalstore = [];
+
+
 const newCard = ({
   id,
   imageUrl,
@@ -15,8 +18,8 @@ const newCard = ({
     <button type="button" class="btn btn-outline-success">
       <i class="fas fa-pencil-alt"></i>
     </button>
-    <button type="button" class="btn btn-outline-danger">
-      <i class="fas fa-trash-alt"></i>
+    <button type="button" class="btn btn-outline-danger" id=${id} onclick ="deleteCard.apply(this, arguments)">
+      <i class="fas fa-trash-alt" id=${id} onclick ="deleteCard.apply(this, arguments)></i>
     </button>
   </div>
   <img
@@ -39,19 +42,24 @@ const newCard = ({
 </div>
 </div>`;
 
-const loadinitialTaskcards = () =>{
+const loadInitialTaskCards = () => {
   //access localstorage
   const getInitialData = localStorage.getItem("tasky");
   if (!getInitialData) return;
+
   //convert stringfied-object to object
   const {cards} =JSON.parse(getInitialData);
+
   //map arround the array to generate html card 
-  cards.map((cardobject) =>{
-    const createNewCard =newCard(cardobject);
+  cards.map((cardObject) =>{
+    const createNewCard =newCard(cardObject);
     taskContainer.insertAdjacentHTML("beforeend", createNewCard);
-    globalstore.push(cardobject);
+    globalstore.push(cardObject);
 
   })
+};
+const updateLocalStorage = () => {
+  localStorage.setItem("tasky",JSON.stringify({cards: globalstore}));
 }
 
 const saveChanges = () => {
@@ -66,8 +74,29 @@ const saveChanges = () => {
   const createNewCard = newCard(taskData);
 
   taskContainer.insertAdjacentHTML("beforeend", createNewCard);
+  
   globalstore.push(taskData);
+  
   //local storage
-  localStorage.setItem("tasky",JSON.stringify({cards: globalstore}));
+  
+  updateLocalStorage();
+
 };
 
+const deleteCard =(event)=>{
+  //id
+  event = windows.event;
+  const targetID = event.target.id;
+ const tagname = event.target.tagName;
+  globalstore = globalstore.filter((cardObject) => cardObject.id !== targetID);
+
+   updateLocalStorage();
+   //access DOM to remove them
+
+   if(tagname ==="BUTTON")
+   //task container
+     return taskContainer.removeChild(event.target.parentNode.parentNode.parentNode);
+   //task container
+    return taskContainer.removeChild(event.target.parentNode.parentNode.parentNode.parentNode);
+   
+};
