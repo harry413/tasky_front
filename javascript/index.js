@@ -1,7 +1,7 @@
 // Parent element to store cards
 const taskContainer = document.querySelector(".task__container");
 
-// Global Store
+// Global Storage
 let globalStore = [];
 
 const newCard = ({
@@ -42,7 +42,7 @@ const newCard = ({
 
 const loadInitialTaskCards = () => {
   // access localstorage
-  const getInitialData = localStorage.getItem("tasky"); // null
+  const getInitialData = localStorage.getItem("tasky");
   if (!getInitialData) return;
 
   // convert stringified-object to object
@@ -82,7 +82,7 @@ const deleteCard = (event) => {
   // id
   event = window.event;
   const targetID = event.target.id;
-  const tagname = event.target.tagName; // BUTTON
+  const tagname = event.target.tagName; 
 
   // search the globalStore, remove the object which matches with the id
   globalStore = globalStore.filter((cardObject) => cardObject.id !== targetID);
@@ -92,14 +92,14 @@ const deleteCard = (event) => {
   // access DOM to remove them
 
   if (tagname === "BUTTON") {
-    // task__container
+    // task  container
     return taskContainer.removeChild(
-      event.target.parentNode.parentNode.parentNode // col-lg-4
+      event.target.parentNode.parentNode.parentNode
     );
   }
 
-  // task__container
+  // task  container
   return taskContainer.removeChild(
-    event.target.parentNode.parentNode.parentNode.parentNode // col-lg-4
+    event.target.parentNode.parentNode.parentNode.parentNode
   );
 };
