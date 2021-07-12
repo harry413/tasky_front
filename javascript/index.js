@@ -13,7 +13,7 @@ const newCard = ({
 }) => `<div class="col-md-6 col-lg-4" id=${id}>
 <div class="card">
   <div class="card-header d-flex justify-content-end gap-2">
-    <button type="button" class="btn btn-outline-success">
+    <button type="button" class="btn btn-outline-success" >
       <i class="fas fa-pencil-alt"></i>
     </button>
     <button type="button" id=${id} class="btn btn-outline-danger" onclick="deleteCard.apply(this, arguments)">
